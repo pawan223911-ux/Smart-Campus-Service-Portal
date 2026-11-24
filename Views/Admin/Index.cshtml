@@ -1,0 +1,135 @@
+@model IEnumerable<ServiceRequest>
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h2 class="fw-bold mb-4">Admin Management Portal</h2>
+
+<div class="card shadow-sm border-0">
+
+    <div class="card-header bg-white">
+
+        <h5>Manage Service Requests</h5>
+
+        <form asp-action="Index" method="get"
+              class="d-flex gap-2 mt-3">
+
+            <select name="status" class="form-select">
+
+                <option value="">All Requests</option>
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+
+            </select>
+
+            <button type="submit" class="btn btn-primary">
+                Filter
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered align-middle">
+
+                <thead class="table-light">
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Student</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Update</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var request in Model)
+                    {
+                        <tr>
+
+                            <td>@request.Id</td>
+
+                            <td>@request.StudentName</td>
+
+                            <td>@request.Category</td>
+
+                            <td>@request.Description</td>
+
+                            <td>@request.Status</td>
+
+                            <td>
+
+                                <form asp-action="UpdateStatus"
+                                      method="post">
+
+                                    @Html.AntiForgeryToken()
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@request.Id" />
+
+                                    <select name="status"
+                                            class="form-select mb-2">
+
+                                        <option value="Pending"
+                                                selected="@(request.Status == "Pending")">
+                                            Pending
+                                        </option>
+
+                                        <option value="In Progress"
+                                                selected="@(request.Status == "In Progress")">
+                                            In Progress
+                                        </option>
+
+                                        <option value="Completed"
+                                                selected="@(request.Status == "Completed")">
+                                            Completed
+                                        </option>
+
+                                    </select>
+
+                                    <input type="text"
+                                           name="remarks"
+                                           class="form-control mb-2"
+                                           placeholder="Admin remarks"
+                                           value="@request.AdminRemarks" />
+
+                                    <button type="submit"
+                                            class="btn btn-sm btn-success">
+                                        Update
+                                    </button>
+
+                                </form>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center">
+                                No requests found.
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+</div>
