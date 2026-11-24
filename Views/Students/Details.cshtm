@@ -1,0 +1,64 @@
+@model Student
+
+@{
+    ViewData["Title"] = "Student Details";
+}
+
+<div class="card shadow-sm border-0">
+
+    <div class="card-header bg-primary text-white">
+        <h4>Student Profile</h4>
+    </div>
+
+    <div class="card-body">
+
+        <h5>@Model.FullName</h5>
+
+        <hr />
+
+        <p><strong>Roll Number:</strong> @Model.StudentIdNumber</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Phone:</strong> @Model.PhoneNumber</p>
+        <p><strong>Department:</strong> @Model.Department</p>
+        <p><strong>Registered:</strong> @Model.RegisteredDate.ToString("dd MMM yyyy")</p>
+
+        <h5 class="mt-4">Student Service Requests</h5>
+
+        @{
+            var requests = ViewBag.Requests as IEnumerable<ServiceRequest>;
+        }
+
+        @if (requests != null && requests.Any())
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var request in requests)
+                    {
+                        <tr>
+                            <td>@request.Id</td>
+                            <td>@request.Category</td>
+                            <td>@request.Status</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-muted">No requests found.</p>
+        }
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Back
+        </a>
+
+    </div>
+</div>
