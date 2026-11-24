@@ -1,0 +1,123 @@
+@model ServiceRequest
+
+@{
+    ViewData["Title"] = "Create Service Request";
+}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-8">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-header bg-white">
+                <h4>Submit Campus Service Request</h4>
+                <small class="text-muted">
+                    Fill in the details below.
+                </small>
+            </div>
+
+            <div class="card-body">
+
+                <form asp-action="Create" method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="text-danger"></div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="StudentName"
+                               class="form-label">
+                        </label>
+
+                        <input asp-for="StudentName"
+                               class="form-control"
+                               placeholder="Enter student full name" />
+
+                        <span asp-validation-for="StudentName"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="StudentRollNo"
+                               class="form-label">
+                            Student Roll Number
+                        </label>
+
+                        <input asp-for="StudentRollNo"
+                               class="form-control"
+                               placeholder="Enter roll number" />
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="Category"
+                               class="form-label">
+                            Service Category
+                        </label>
+
+                        <select asp-for="Category"
+                                class="form-select">
+
+                            <option value="">Choose Category</option>
+                            <option value="IT Support">IT Support</option>
+                            <option value="Hostel">Hostel</option>
+                            <option value="Library">Library</option>
+                            <option value="Maintenance">Maintenance</option>
+
+                        </select>
+
+                        <span asp-validation-for="Category"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="Description"
+                               class="form-label">
+                            Description
+                        </label>
+
+                        <textarea asp-for="Description"
+                                  class="form-control"
+                                  rows="4"
+                                  placeholder="Describe your problem">
+                        </textarea>
+
+                        <span asp-validation-for="Description"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+
+                        <a asp-action="Index"
+                           class="btn btn-outline-secondary">
+                            Cancel
+                        </a>
+
+                        <button type="submit"
+                                class="btn btn-primary">
+                            <i class="bi bi-send"></i>
+                            Submit Request
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
