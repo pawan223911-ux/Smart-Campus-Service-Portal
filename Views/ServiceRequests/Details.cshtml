@@ -1,0 +1,40 @@
+@model ServiceRequest
+
+@{
+    ViewData["Title"] = "Request Details";
+}
+
+<div class="card shadow-sm border-0">
+
+    <div class="card-header bg-primary text-white">
+        <h4>Service Request Details</h4>
+    </div>
+
+    <div class="card-body">
+
+        <h5>Request ID: #@Model.Id</h5>
+
+        <hr />
+
+        <p><strong>Student:</strong> @Model.StudentName</p>
+        <p><strong>Roll Number:</strong> @Model.StudentRollNo</p>
+        <p><strong>Category:</strong> @Model.Category</p>
+        <p><strong>Description:</strong> @Model.Description</p>
+        <p><strong>Submitted:</strong> @Model.SubmissionDate</p>
+
+        <p>
+            <strong>Status:</strong>
+            <span class="badge bg-info">@Model.Status</span>
+        </p>
+
+        <p>
+            <strong>Admin Remarks:</strong>
+            @(Model.AdminRemarks ?? "No remarks available")
+        </p>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Back
+        </a>
+
+    </div>
+</div>
